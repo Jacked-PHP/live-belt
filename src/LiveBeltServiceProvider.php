@@ -2,9 +2,11 @@
 
 namespace LiveBelt;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use LiveBelt\Livewire\LiveBelt;
+use LiveBelt\Livewire\LiveBelt as LivewireLiveBelt;
 use Livewire\Livewire;
+use LiveBelt\Components\LiveBelt;
 
 class LiveBeltServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class LiveBeltServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'live-belt');
-        Livewire::component('live-belt', LiveBelt::class);
+        Blade::component('live-belt', LiveBelt::class);
+        Livewire::component('live-belt', LivewireLiveBelt::class);
     }
 }

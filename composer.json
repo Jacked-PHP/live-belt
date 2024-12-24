@@ -6,6 +6,6 @@
         }
     },
     "require": {
-        "kanata-php/conveyor-laravel-broadcaster": "^0.1"
+        "kanata-php/conveyor-laravel-broadcaster": "dev-master"
     }
 }

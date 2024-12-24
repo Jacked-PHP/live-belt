@@ -1,0 +1,11 @@
+{
+    "name": "jacked-php/live-belt",
+    "autoload": {
+        "psr-4": {
+            "LiveBelt\\": "src/"
+        }
+    },
+    "require": {
+        "kanata-php/conveyor-laravel-broadcaster": "^0.1"
+    }
+}

@@ -6,7 +6,8 @@
         }
     },
     "require": {
-        "kanata-php/conveyor-laravel-broadcaster": "^0.1"
+        "kanata-php/conveyor-laravel-broadcaster": "^0.1",
+        "livewire/livewire": "^3.5"
     },
     "extra": {
         "laravel": {

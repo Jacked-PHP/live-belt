@@ -7,5 +7,12 @@
     },
     "require": {
         "kanata-php/conveyor-laravel-broadcaster": "^0.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LiveBelt\\LiveBeltServiceProvider"
+            ]
+        }
     }
 }

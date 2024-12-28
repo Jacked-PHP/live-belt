@@ -2,6 +2,13 @@
 
 <div x-data="{{ $liveComponentName }}"></div>
 
+@php
+    try {
+        $token = Conveyor::getToken($channel);
+    } catch (Exception|Error $e) {
+        $token = '';
+    }
+@endphp
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('{{ $liveComponentName }}', () => ({
@@ -13,7 +20,7 @@
                     uri: '{{ $host }}',
                     port: {{ $port }},
                     channel: '{{ $channel }}',
-                    token: '{{ Conveyor::getToken($channel) }}',
+                    token: '{{ $token }}',
                     onMessage: (e) => {
                         let data;
                         try {

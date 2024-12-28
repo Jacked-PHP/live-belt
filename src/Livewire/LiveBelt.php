@@ -2,7 +2,9 @@
 
 namespace LiveBelt\Livewire;
 
+use Error;
 use Exception;
+use Kanata\LaravelBroadcaster\Conveyor;
 use LiveBelt\Events\OnConveyorMessage;
 use Livewire\Component;
 
@@ -40,8 +42,19 @@ class LiveBelt extends Component
         event(new OnConveyorMessage($data));
     }
 
+    public function getToken(): string
+    {
+        try {
+            return Conveyor::getToken($this->channel);
+        } catch (Exception|Error $e) {
+            return '';
+        }
+    }
+
     public function render()
     {
-        return view('live-belt::livewire.live-belt');
+        return view('live-belt::livewire.live-belt', [
+            'token' => $this->getToken(),
+        ]);
     }
 }

@@ -1,14 +1,5 @@
-@use('Kanata\LaravelBroadcaster\Conveyor')
-
 <div x-data="{{ $liveComponentName }}"></div>
 
-@php
-    try {
-        $token = Conveyor::getToken($channel);
-    } catch (Exception|Error $e) {
-        $token = '';
-    }
-@endphp
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('{{ $liveComponentName }}', () => ({
@@ -35,6 +26,9 @@
                         {{ $callback }}(data.message);
                         window.dispatchEvent(new CustomEvent('onConveyorMessage', {detail: parsedMessage}));
                         that.$wire.onMessage(data.message);
+                    },
+                    onCloseCallback: async () => {
+                        window.connection.options.token = await that.$wire.getToken();
                     },
                     reconnect: true,
                 });

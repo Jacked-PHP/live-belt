@@ -15,16 +15,19 @@
                     channel: '{{ $channel }}',
                     token: '{{ Conveyor::getToken($channel) }}',
                     onMessage: (e) => {
+                        let data;
                         try {
-                            let data = JSON.parse(e);
-                            if (!data.message) return;
-                            let parsedMessage = JSON.parse(data.message);
-                            {{ $callback }}(data.message);
-                            window.dispatchEvent(new CustomEvent('onConveyorMessage', {detail: parsedMessage}));
-                            that.$wire.onMessage(data.message);
+                            data = JSON.parse(e);
                         } catch (error) {
                             console.warn(error.message, e);
+                            data = e;
                         }
+
+                        if (!data.message) return;
+                        let parsedMessage = data.message;
+                        {{ $callback }}(data.message);
+                        window.dispatchEvent(new CustomEvent('onConveyorMessage', {detail: parsedMessage}));
+                        that.$wire.onMessage(data.message);
                     },
                     reconnect: true,
                 });

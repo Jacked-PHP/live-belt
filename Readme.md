@@ -19,6 +19,7 @@ Add the following to your `bootstrap/providers.php` file:
 
 return [
     // ...
+    Kanata\LaravelBroadcaster\ConveyorServiceProvider::class,
     LiveBelt\LiveBeltServiceProvider::class,
 ],
 ````
@@ -26,6 +27,7 @@ return [
 ### Step 3: install dependencies for JS
 
 ```bash
+php artisan install:broadcasting --without-reverb
 npm install --save socket-conveyor-client
 ```
 
@@ -39,6 +41,24 @@ window.Conveyor = Conveyor;
 
 At this stage, be sure to follow the steps 1 to 5 at the [Laravel Conveyor Driver documentation](https://socketconveyor.com/docs/laravel-driver).
 
+### Step 4: adjust configuration
+
+Add the following to your `config/broadcasting.php` file:
+
+```php
+<?php
+
+return [
+    // ...
+    'conveyor' => [
+        'driver' => 'conveyor',
+        'protocol' => env('CONVEYOR_PROTOCOL', 'ws'),
+        'host' => env('CONVEYOR_URI', 'localhost'),
+        'port' => env('CONVEYOR_PORT', 8181),
+    ],
+];
+```
+
 ## Usage
 
 First, check the [Laravel Conveyor Driver documentation](https://socketconveyor.com/docs/laravel-driver) to set up your Laravel project.
@@ -48,7 +68,7 @@ Add this to your scripts area:
 ```html
 <livewire:live-belt
     :channel="'private-notifications-' . auth()->id()"
-    :callback="console.log"
+    callback="console.log"
 />
 ```
 

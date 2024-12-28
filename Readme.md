@@ -23,10 +23,6 @@ return [
 ],
 ````
 
-```bash
-php artisan vendor:publish --provider="LiveBelt\LiveBeltServiceProvider"
-```
-
 ### Step 3: install dependencies for JS
 
 ```bash

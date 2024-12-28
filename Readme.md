@@ -27,9 +27,11 @@ return [
 ### Step 3: install dependencies for JS
 
 ```bash
-php artisan install:broadcasting --without-reverb
+php artisan install:broadcasting --without-reverb --without-node
 npm install --save socket-conveyor-client
 ```
+
+Comment `import './echo';` from `resources/js/bootstrap.js`.
 
 Then add this to your `app.js`:
 
@@ -57,6 +59,18 @@ return [
         'port' => env('CONVEYOR_PORT', 8181),
     ],
 ];
+```
+
+Set the configurations for the WebSocket server in the `.env` file:
+
+```dotenv
+# ...
+BROADCAST_CONNECTION=conveyor
+# ...
+CONVEYOR_URI=127.0.0.1
+CONVEYOR_PORT=8181
+CONVEYOR_QUERY="token=my-secure-conveyor-token"
+# ...
 ```
 
 ## Usage

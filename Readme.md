@@ -19,7 +19,7 @@ Add the following to your `bootstrap/providers.php` file:
 
 return [
     // ...
-    Jacked\LiveBelt\Providers\LiveBeltServiceProvider::class,
+    LiveBelt\LiveBeltServiceProvider::class,
 ],
 ````
 

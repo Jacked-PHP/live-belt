@@ -20,5 +20,9 @@ class LiveBeltServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'live-belt');
         Blade::component('live-belt', LiveBelt::class);
         Livewire::component('live-belt', LivewireLiveBelt::class);
+
+        $this->publishes([
+            __DIR__.'/../config/live-belt.php' => config_path('live-belt.php')
+        ], 'live-belt-config');
     }
 }

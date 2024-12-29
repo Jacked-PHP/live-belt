@@ -2,6 +2,8 @@
 
 Livewire Component for Real Time interactions using Laravel Conveyor Driver.
 
+Video: https://www.youtube.com/watch?v=nQgMK2r_gww
+
 ## Installation
 
 ### Step 1: install package

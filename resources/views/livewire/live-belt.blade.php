@@ -3,14 +3,17 @@
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('{{ $liveComponentName }}', () => ({
+            ws: null,
+            channel: '{{ $channel }}',
+
             init() {
                 let that = this;
 
-                window.connection = new window.Conveyor({
+                this.ws = new window.Conveyor({
                     protocol: '{{ $protocol }}',
                     uri: '{{ $host }}',
                     port: {{ $port }},
-                    channel: '{{ $channel }}',
+                    channel: this.channel,
                     token: '{{ $token }}',
                     onMessage: (e) => {
                         let data;
@@ -30,9 +33,18 @@
                     onCloseCallback: async () => {
                         window.connection.options.token = await that.$wire.getToken();
                     },
+                    onReady: () => {
+                        window.addEventListener('onConveyorMessageBroadcast', that.sendMessage.bind(that));
+                    },
                     reconnect: true,
+                    acknowledge: true,
                 });
-            }
+            },
+
+            sendMessage(e) {
+                if (e.detail.channel !== this.channel) return;
+                this.ws.send(e.detail.message, 'broadcast-action');
+            },
         }));
     });
 </script>

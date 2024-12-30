@@ -127,6 +127,53 @@ Dispatch it like this and see the console log of your browser:
 event(new NotificationReady( message: 'Message from Conveyor', channel: 'notifications-{your-user-id-here}')); // remember to replace {your-user-id-here} with your user id
 ```
 
+## Events
+
+In Live Belt you can listen conveyor events and send messages with events as well. As seen abore in the "Usage" section you already can saend events leveraging the Laravel Broadcasting system. You can also broadcast from the frontend!
+
+Let's start by seeing the case of listening events in the backend and frontned. Then we visit the case of triggering events from the frontend.
+
+### Listening Live Belt events
+
+To listen to events in the backend, you can just listen to the event `\LiveBelt\Events\OnConveyorMessage`. That way, whenever you receive some event from Conveyor Server, you'll be able to react to it in the backend.
+
+Here is an example:
+
+```php
+<?php
+
+namespace App\Listeners;
+
+use App\Events\NotificationReady;
+use LiveBelt\Events\OnConveyorMessage;
+
+class SampleListener
+{
+    public function handle(OnConveyorMessage $event): void
+    {
+        logger()->info('Event received from Conveyor Server', [
+            'event' => $event,
+        ]);
+    }
+}
+```
+
+In the frontend, you can listen by listening to events thrown in the window scope: `onConveyorMessage`. Here is an example:
+
+```javascript
+window.addEventListener('onConveyorMessageBroadcast', (event) => {
+    console.log('Event received from Conveyor Server', event.detail);
+}); 
+```
+
+### Triggering Live Belt events
+
+To trigger events to Conveyor Server form the frontend, you just dispatch the event `onConveyorMessageBroadcast` in the window scope. You must send the channel you want to send to and the message. Both fields are requried. Here is an example:
+
+```javascript
+window.dispatchEvent(new CustomEvent('onConveyorMessageBroadcast', {detail: {channel: "private-notifications-", message: "my message"}}));
+```
+
 ## Notes
 
 - There will be logs in the browser console in case of errors (shown as warnings).

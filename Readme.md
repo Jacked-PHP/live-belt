@@ -129,9 +129,9 @@ event(new NotificationReady( message: 'Message from Conveyor', channel: 'notific
 
 ## Events
 
-In Live Belt you can listen conveyor events and send messages with events as well. As seen abore in the "Usage" section you already can saend events leveraging the Laravel Broadcasting system. You can also broadcast from the frontend!
+In Live Belt, you can listen to conveyor events and send messages with them. As seen above in the "Usage" section, you can already send events leveraging the Laravel Broadcasting system. You can also broadcast from the front end!
 
-Let's start by seeing the case of listening events in the backend and frontned. Then we visit the case of triggering events from the frontend.
+Let's start by examining the cases of listening events in the backend and front end. Then, we will visit the case of triggering events from the front end.
 
 ### Listening Live Belt events
 
@@ -158,7 +158,7 @@ class SampleListener
 }
 ```
 
-In the frontend, you can listen by listening to events thrown in the window scope: `onConveyorMessage`. Here is an example:
+In the front end, you can listen to events thrown in the window scope: `onConveyorMessage`. Here is an example:
 
 ```javascript
 window.addEventListener('onConveyorMessageBroadcast', (event) => {
@@ -168,7 +168,7 @@ window.addEventListener('onConveyorMessageBroadcast', (event) => {
 
 ### Triggering Live Belt events
 
-To trigger events to Conveyor Server form the frontend, you just dispatch the event `onConveyorMessageBroadcast` in the window scope. You must send the channel you want to send to and the message. Both fields are requried. Here is an example:
+To trigger events to Conveyor Server from the frontend, you just dispatch the event `onConveyorMessageBroadcast` in the window scope. You must send the channel you want to send to and the message. Both fields are required. Here is an example:
 
 ```javascript
 window.dispatchEvent(new CustomEvent('onConveyorMessageBroadcast', {detail: {channel: "private-notifications-", message: "my message"}}));

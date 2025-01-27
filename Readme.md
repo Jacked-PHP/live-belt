@@ -171,7 +171,12 @@ window.addEventListener('onConveyorMessageBroadcast', (event) => {
 To trigger events to Conveyor Server from the frontend, you just dispatch the event `onConveyorMessageBroadcast` in the window scope. You must send the channel you want to send to and the message. Both fields are required. Here is an example:
 
 ```javascript
-window.dispatchEvent(new CustomEvent('onConveyorMessageBroadcast', {detail: {channel: "private-notifications-", message: "my message"}}));
+window.dispatchEvent(new CustomEvent('onConveyorMessageBroadcast', {
+    detail: {
+        channel: "private-notifications-",
+        message: { message: "my message" },
+    },
+}));
 ```
 
 ## Notes

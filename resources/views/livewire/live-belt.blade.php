@@ -31,7 +31,9 @@
                         that.$wire.onMessage(data.message);
                     },
                     onCloseCallback: async () => {
-                        window.connection.options.token = await that.$wire.getToken();
+                        if (window.connection) {
+                            window.connection.options.token = await that.$wire.getToken();
+                        }
                     },
                     onReady: () => {
                         window.addEventListener('onConveyorMessageBroadcast', that.sendMessage.bind(that));
